@@ -14,7 +14,7 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const cohere = new CohereClient({ token: process.env.COHERE_API_KEY });
 
 const PROMPT = (query) => `You are a product search assistant. A shopper asks: "${query}".
-List the top 5 products/brands you would recommend.
+List the top 10 products/brands you would recommend.
 Return ONLY a valid JSON array with no extra text, no markdown, no explanation:
 [{"rank":1,"brand":"X","product":"Y","reason":"Z"}]`;
 
