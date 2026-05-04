@@ -37,14 +37,6 @@ async function queryGPT(query) {
   return extractJSON(res.choices[0].message.content);
 }
 
-// async function queryClaude(query) {
-//   const model = genAI.getGenerativeModel({
-//     model: 'gemini-1.5-flash-latest',
-//     generationConfig: { responseMimeType: 'application/json' }
-//   });
-//   const res = await model.generateContent(PROMPT(query));
-//   return extractJSON(res.response.text());
-// }
 async function queryClaude(query) {
   const res = await groq.chat.completions.create({
     model: 'llama-3.1-8b-instant',
