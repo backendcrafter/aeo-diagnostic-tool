@@ -38,24 +38,32 @@ async function queryGPT(query) {
 }
 
 async function queryClaude(query) {
-  const res = await groq.chat.completions.create({
-    model: 'llama-3.1-8b-instant',
-    messages: [
-      { role: 'system', content: 'You must respond with ONLY a valid JSON array. No explanation, no markdown, no text before or after.' },
-      { role: 'user', content: PROMPT(query) }
-    ],
-    temperature: 0.1,
-  });
-  return extractJSON(res.choices[0].message.content);
-}
-
-async function queryGemini(query) {
   const res = await cohere.chat({
     model: 'command-r-08-2024',
     message: PROMPT(query),
     preamble: 'You must respond with ONLY a valid JSON array. No explanation, no markdown, no text before or after.',
   });
   return extractJSON(res.text);
+}
+
+async function queryGemini(query) {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'google/gemini-2.0-flash-001',
+      messages: [
+        { role: 'system', content: 'You must respond with ONLY a valid JSON array. No explanation, no markdown, no text before or after.' },
+        { role: 'user', content: PROMPT(query) }
+      ],
+      temperature: 0.1,
+    }),
+  });
+  const data = await res.json();
+  return extractJSON(data.choices[0].message.content);
 }
 
 app.post('/analyze', async (req, res) => {

@@ -10,8 +10,8 @@ const COLORS = {
 
 const AI_CONFIG = {
   gpt: { name: "GPT-4o", icon: "🟢", model: "LLaMA 3.3 70B", color: "#10b981" },
-  claude: { name: "Claude", icon: "🟣", model: "LLaMA 3.1 8B", color: "#8b5cf6" },
-  gemini: { name: "Gemini", icon: "🔵", model: "Command R", color: "#3b82f6" },
+  claude: { name: "Claude", icon: "🟣", model: "command-r-08-2024", color: "#8b5cf6" },
+  gemini: { name: "Gemini", icon: "🔵", model: "gemini-2.0-flash-001", color: "#3b82f6" },
 };
 
 function SkeletonCard() {
